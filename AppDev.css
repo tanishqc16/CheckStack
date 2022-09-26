@@ -67,3 +67,32 @@ input#submit{
 .backtohome{
     margin-left: 400px;
 }
+.title{
+    color: rgb(11, 0, 50);
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 700;
+}
+.phrase{
+    color: rgb(11, 0, 50);
+    text-align: center;
+    font-weight: 500;
+}
+.sub{
+    color: rgb(11, 0, 50);
+    text-align: center;
+}
+.domain{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    background: white;
+    height: 250px;
+    width:250px;
+    padding: 5px;
+    margin-left: 40%;
+    border-radius: 10px;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
