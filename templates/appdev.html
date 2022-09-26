@@ -38,28 +38,43 @@
 </div>
 
 <div class="questions">
-    <form action="/suggest_ml" method="post">
+    <form action="/suggest_appdev" method="post">
         <div class="mb-4">
-            <label class="form-label">1.What is Your Skill level in Python language?</label>
-            <input name="py" type="text" class="form-control" id="qn1">
+            <label class="form-label">1.What is your Skill level in Java language?</label>
+            <input name="java" type="text" class="form-control" id="qn1">
             <div class="form-text">Enter a value from 0 to 10</div>
         </div>
         <div class="mb-4">
-            <label class="form-label">2.What is Your Skill level in Rust language?</label>
-            <input name="r" type="text" class="form-control" id="qn2">
+            <label class="form-label">2.What is your Skill level in Javascript language ?</label>
+            <input name="js" type="text" class="form-control" id="qn2">
             <div class="form-text">Enter a value from 0 to 10</div>
         </div>
         <div class="mb-4">
-            <label class="form-label">3.Do you know about libraries like numpy and pandas?</label>
-            <input name="lib" type="text" class="form-control" id="qn3">
-            <div class="form-text">Enter 0/1 (No/Yes)</div>
-        </div>
-        <div class="mb-4">
-            <label class="form-label">4.How much is your understaning about mathematical concepts like linear algebra ,
-                trignometry , statistics?</label>
-            <input name="math" type="text" class="form-control" id="qn4">
+            <label class="form-label">3.What is your Skill level in C++ language?</label>
+            <input name="cpp" type="text" class="form-control" id="qn3">
             <div class="form-text">Enter a value from 0 to 10</div>
         </div>
+        <div class="mb-4">
+            <label class="form-label">4.What is your Skill level in Dart language?</label>
+            <input name="dart" type="text" class="form-control" id="qn4">
+            <div class="form-text">Enter a value from 0 to 10</div>
+        </div>
+        <div class="mb-4">
+            <label class="form-label">5.What is your Skill level in SQL language ?</label>
+            <input name="sql" type="text" class="form-control" id="qn5">
+            <div class="form-text">Enter a value from 0 to 10</div>
+        </div>
+        <div class="mb-4">
+            <label class="form-label">6.How much Time do you have to develop the project (in months)?</label>
+            <input name="time" type="text" class="form-control" id="qn6">
+            <div class="form-text">Enter a value from 0 to 12</div>
+        </div>
+        <div class="mb-4">
+            <label class="form-label">7.How many people would be using your project ?</label>
+            <input name="scale" type="text" class="form-control" id="qn7">
+            <div class="form-text">Enter a value from 0 to 10</div>
+        </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
@@ -68,14 +83,13 @@
 
     {%for i in data %}
     <div class="card" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="...">
+        <img style="height:10rem;width=10rem;" src="{{i[1]}}" class="card-img-top" alt="...">
         <div class="card-body">
             <h5 class="card-title">{{i[0]}}</h5>
         </div>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">Type : {{i[1]}}</li>
-            <li class="list-group-item">Time to learn : {{i[2]}}</li>
-            <li class="list-group-item">{{i[9]}}</li>
+            <li class="list-group-item">Specification : {{i[2]}}</li>
+            <li class="list-group-item">Time to learn : {{i[3]}}</li>
         </ul>
     </div>
     {% endfor %}

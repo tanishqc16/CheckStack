@@ -68,14 +68,14 @@
 
     {%for i in data %}
     <div class="card" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="...">
+        <img style="height:10rem;width=10rem;"src="{{i[9]}}" class="card-img-top" alt="...">
         <div class="card-body">
             <h5 class="card-title">{{i[0]}}</h5>
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">Type : {{i[1]}}</li>
             <li class="list-group-item">Time to learn : {{i[2]}}</li>
-            <li class="list-group-item">{{i[9]}}</li>
+            <li class="list-group-item">{{i[10]}}</li>
         </ul>
     </div>
     {% endfor %}
