@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CheckStack-BLOCKCHAIN</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <style>
+        .questions{
+            width:60%;
+            margin: 50px auto;
+        }
+
+        .suggestions{
+            width:90%;
+            margin: 50px auto;
+            display:flex;
+            flex-direction:row;
+            justify-content:space-evenly;
+        }
+        .home{
+            margin-top:30px;
+            text-align:center;
+        }
+
+
+    </style>
+
+</head>
+<body>
+
+<div class="home">
+    <a href="/">Home</a>
+</div>
+
+<div class="questions">
+    <form action="/suggest_ml" method="post">
+        <div class="mb-4">
+            <label class="form-label">1.What is Your Skill level in Python language?</label>
+            <input name="py" type="text" class="form-control" id="qn1">
+            <div class="form-text">Enter a value from 0 to 10</div>
+        </div>
+        <div class="mb-4">
+            <label class="form-label">2.What is Your Skill level in Rust language?</label>
+            <input name="r" type="text" class="form-control" id="qn2">
+            <div class="form-text">Enter a value from 0 to 10</div>
+        </div>
+        <div class="mb-4">
+            <label class="form-label">3.Do you know about libraries like numpy and pandas?</label>
+            <input name="lib" type="text" class="form-control" id="qn3">
+            <div class="form-text">Enter 0/1 (No/Yes)</div>
+        </div>
+        <div class="mb-4">
+            <label class="form-label">4.How much is your understaning about mathematical concepts like linear algebra ,
+                trignometry , statistics?</label>
+            <input name="math" type="text" class="form-control" id="qn4">
+            <div class="form-text">Enter a value from 0 to 10</div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<div class="suggestions">
+
+    {%for i in data %}
+    <div class="card" style="width: 18rem;">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{i[0]}}</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Type : {{i[1]}}</li>
+            <li class="list-group-item">Time to learn : {{i[2]}}</li>
+            <li class="list-group-item">{{i[9]}}</li>
+        </ul>
+    </div>
+    {% endfor %}
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+</body>
+</html>
