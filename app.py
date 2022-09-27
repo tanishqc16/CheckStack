@@ -69,7 +69,7 @@ def suggest_blockchain():
     cpp = cpp + 2
     go = go + 2
 
-
+    resultArr=[]
 
     if (spec == 0):
         # maxSkill = max(js, py, rust)
@@ -85,11 +85,15 @@ def suggest_blockchain():
         tempdf.sort_values(by=['Popularity'], axis=0, ascending=False, inplace=True)
         tempdf.reset_index(inplace=True, drop=True)
         # rec1 = tempdf.loc[0,:]
-        rec1 = tempdf.head(1)
 
-        comp1 = tempdf.loc[0, "Compatibility1"]
-        comp2 = tempdf.loc[0, "Compatibility2"]
-        arr = np.array
+        if (tempdf.empty):
+            rec1 = block[(block.Name == "Atra") & (block.Specification == "SmartContracts")]
+        else:
+            rec1 = tempdf.head(1)
+
+        rec1.reset_index(inplace=True, drop=True)
+        comp1 = rec1.loc[0, "Compatibility1"]
+        comp2 = rec1.loc[0, "Compatibility2"]
 
         # second rec
         tempdf = block.query('Specification=="Frontend"')
@@ -105,10 +109,15 @@ def suggest_blockchain():
         tempdf.sort_values(by=['Popularity'], axis=0, ascending=False, inplace=True)
         tempdf.reset_index(inplace=True, drop=True)
         # rec2 = tempdf.loc[0,:]
-        rec2 = tempdf.head(1)
 
-        comp1 = tempdf.loc[0, "Compatibility1"]
-        comp2 = tempdf.loc[0, "Compatibility2"]
+        if (tempdf.empty):
+            rec2 = block[(block.Name == "WordPressFront") & (block.Specification == "Frontend")]
+        else:
+            rec2 = tempdf.head(1)
+
+        rec2.reset_index(inplace=True, drop=True)
+        comp1 = rec2.loc[0, "Compatibility1"]
+        comp2 = rec2.loc[0, "Compatibility2"]
 
         # Third rec
         tempdf = block.query('Specification=="Backend"')
@@ -240,7 +249,7 @@ def suggest_web():
     hcs = hcs + 2
 
     resultArr=[]
-    # maxSkill = max(js, py, rust)
+
     tempdf = webp.query('Specification=="Frontend"')
 
     tempdf = tempdf[(tempdf.Time2Learn <= time)
@@ -251,9 +260,16 @@ def suggest_web():
 
     tempdf.sort_values(by=['Scalability'], axis=0, ascending=False, inplace=True)
     tempdf.reset_index(inplace=True, drop=True)
+    rec1 = tempdf
+
+    if (rec1.empty):
+        rec1 = webp[(webp.Name == "Wordpress") & (webp.Specification == "Frontend")]
 
     # rec1=tempdf.loc[0,"Name"]
-    rec1 = tempdf.head(1)
+    else:
+        rec1 = tempdf.head(1)
+
+    print(rec1)
 
     comp1 = tempdf.loc[0, "Compatibility1"]
     comp2 = tempdf.loc[0, "Compatibility2"]
@@ -275,8 +291,13 @@ def suggest_web():
     #   rec2 = tempdf.loc[0,"Name"]
 
     # rec2 = tempdf.loc[0,"Name"]
-    rec2 = tempdf.head(1)
+    rec2 = tempdf
+    if (rec2.empty):
+        rec2 = webp[(webp.Name == "Wordpress") & (webp.Specification == "Backend")]
+    else:
+        rec2 = tempdf.head(1)
 
+    # if tempdf is empty then run the following 2 statements
     comp1 = tempdf.loc[0, "Compatibility1"]
     comp2 = tempdf.loc[0, "Compatibility2"]
 
@@ -293,7 +314,7 @@ def suggest_web():
 
     tempdf.sort_values(by=['Popularity'], axis=0, ascending=False, inplace=True)
     tempdf.reset_index(inplace=True, drop=True)
-
+    rec = tempdf
     # rec3 = tempdf.loc[0,"Name"]
     rec3 = tempdf.head(1)
 
@@ -303,17 +324,17 @@ def suggest_web():
     # print(rec3)
 
     if (rec1.empty and rec2.empty and rec3.empty):
-        rec1 = df.query('Name=="WordPress"')
+        rec1 = webp.query('Name=="WordPress"')
         array = [rec1]
         result = pd.concat(array)
         resultArr = result.to_numpy()
-
     else:
         array = [rec1, rec2, rec3]
         result = pd.concat(array)
         resultArr = result.to_numpy()
 
     print(resultArr)
+
     return render_template('web.html', data=resultArr)
 
 @app.route('/appdev')
@@ -330,70 +351,78 @@ def suggest_appdev():
     time = int(request.form.get('time'))
     scale = int(request.form.get('scale'))
 
-    tempdf = appp.query('Specification=="Frontend"')
+    tempdf = app.query('Specification=="Frontend"')
 
-    resultArr=[]
     tempdf = tempdf[(tempdf.Time2Learn <= time)
-                    & (tempdf.SkillLvlJS <= (js))
-                    & (tempdf.SkillLvlJava <= (java))
-                    & (tempdf.SkillLvlCpp <= (cpp))
-                    & (tempdf.SkillLvlSql <= (sql))
-                    & (tempdf.SkillLvlDart <= (dart))
-                    & (tempdf.Scalability >= (scale))]
+                    & (tempdf.SkillLvlJS <= (js + 1))
+                    & (tempdf.SkillLvlJava <= (java + 1))
+                    & (tempdf.SkillLvlCpp <= (cpp + 1))
+                    & (tempdf.SkillLvlSql <= (sql + 1))
+                    & (tempdf.SkillLvlDart <= (dart + 1))
+                    & (tempdf.Scalability >= (scale + 1))]
 
     tempdf.sort_values(by=['Popularity'], axis=0, ascending=False, inplace=True)
 
     tempdf.reset_index(inplace=True, drop=True)
-    rec1 = tempdf.head(1)
+    rec1 = tempdf
+    if (rec1.empty):
+        rec1 = app[(app.Name == "Wordpress") & (app.Specification == "Frontend")]
+    else:
+        rec1 = tempdf.head(1)
     # print(tempdf)
     comp1 = tempdf.loc[0, "Compatibility1"]
     comp2 = tempdf.loc[0, "Compatibility2"]
 
     # second rec
-    tempdf = appp.query('Specification=="Backend"')
+    tempdf = app.query('Specification=="Backend"')
     tempdf = tempdf[(tempdf.Name == comp1) | (tempdf.Name == comp2)]
     tempdf = tempdf[(tempdf.Time2Learn <= time)
-                    & (tempdf.SkillLvlJS <= (js))
-                    & (tempdf.SkillLvlJava <= (java))
-                    & (tempdf.SkillLvlCpp <= (cpp))
-                    & (tempdf.SkillLvlSql <= (sql))
-                    & (tempdf.SkillLvlDart <= (dart))
-                    & (tempdf.Scalability >= (scale))]
+                    & (tempdf.SkillLvlJS <= (js + 1))
+                    & (tempdf.SkillLvlJava <= (java + 1))
+                    & (tempdf.SkillLvlCpp <= (cpp + 1))
+                    & (tempdf.SkillLvlSql <= (sql + 1))
+                    & (tempdf.SkillLvlDart <= (dart + 1))
+                    & (tempdf.Scalability >= (scale + 1))]
 
     tempdf.sort_values(by=['Popularity'], axis=0, ascending=False, inplace=True)
     tempdf.reset_index(inplace=True, drop=True)
 
-    rec2 = tempdf.head(1)
+    rec2 = tempdf
+    if (tempdf.empty):
+        rec2 = app[(app.Name == "GoodBarber") & (app.Specification == "Frontend")]
+    else:
+        rec2 = tempdf.head(1)
 
     comp1 = tempdf.loc[0, "Compatibility1"]
     comp2 = tempdf.loc[0, "Compatibility2"]
 
     # Third rec
-    tempdf = appp.query('Specification=="Database"')
+    tempdf = app.query('Specification=="Database"')
 
     tempdf = tempdf[(tempdf.Name == comp1) | (tempdf.Name == comp2)]
 
     tempdf = tempdf[(tempdf.Time2Learn <= time)
-                    & (tempdf.SkillLvlJS <= (js))
-                    & (tempdf.SkillLvlJava <= (java))
-                    & (tempdf.SkillLvlCpp <= (cpp))
-                    & (tempdf.SkillLvlSql <= (sql))
-                    & (tempdf.SkillLvlDart <= (dart))
-                    & (tempdf.Scalability >= (scale))]
+                    & (tempdf.SkillLvlJS <= (js + 1))
+                    & (tempdf.SkillLvlJava <= (java + 1))
+                    & (tempdf.SkillLvlCpp <= (cpp + 1))
+                    & (tempdf.SkillLvlSql <= (sql + 1))
+                    & (tempdf.SkillLvlDart <= (dart + 1))
+                    & (tempdf.Scalability >= (scale + 1))]
 
     tempdf.sort_values(by=['Popularity'], axis=0, ascending=False, inplace=True)
     tempdf.reset_index(inplace=True, drop=True)
     rec3 = tempdf.head(1)
     if (rec1.empty and rec2.empty and rec3.empty):
-        rec1 = appp.query('Name=="GoodBarber"')
+        rec1 = app.query('Name=="GoodBarber"')
         array = [rec1]
         result = pd.concat(array)
         resultArr = result.to_numpy()
-
+        print(result)
     else:
         array = [rec1, rec2, rec3]
         result = pd.concat(array)
         resultArr = result.to_numpy()
+        print(result)
 
     return render_template('appdev.html', data=resultArr)
 
