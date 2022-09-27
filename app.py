@@ -180,6 +180,9 @@ def suggest_gamedev():
 
 
     resultArr=[]
+
+
+
     if (code == 1):
         tempdf = game.query('Code==1')
         if (eng == 1):
@@ -351,7 +354,7 @@ def suggest_appdev():
     time = int(request.form.get('time'))
     scale = int(request.form.get('scale'))
 
-    tempdf = app.query('Specification=="Frontend"')
+    tempdf = appp.query('Specification=="Frontend"')
 
     tempdf = tempdf[(tempdf.Time2Learn <= time)
                     & (tempdf.SkillLvlJS <= (js + 1))
@@ -366,7 +369,7 @@ def suggest_appdev():
     tempdf.reset_index(inplace=True, drop=True)
     rec1 = tempdf
     if (rec1.empty):
-        rec1 = app[(app.Name == "Wordpress") & (app.Specification == "Frontend")]
+        rec1 = appp[(appp.Name == "Wordpress") & (appp.Specification == "Frontend")]
     else:
         rec1 = tempdf.head(1)
     # print(tempdf)
@@ -374,7 +377,7 @@ def suggest_appdev():
     comp2 = tempdf.loc[0, "Compatibility2"]
 
     # second rec
-    tempdf = app.query('Specification=="Backend"')
+    tempdf = appp.query('Specification=="Backend"')
     tempdf = tempdf[(tempdf.Name == comp1) | (tempdf.Name == comp2)]
     tempdf = tempdf[(tempdf.Time2Learn <= time)
                     & (tempdf.SkillLvlJS <= (js + 1))
@@ -389,7 +392,7 @@ def suggest_appdev():
 
     rec2 = tempdf
     if (tempdf.empty):
-        rec2 = app[(app.Name == "GoodBarber") & (app.Specification == "Frontend")]
+        rec2 = app[(appp.Name == "GoodBarber") & (appp.Specification == "Frontend")]
     else:
         rec2 = tempdf.head(1)
 
@@ -397,7 +400,7 @@ def suggest_appdev():
     comp2 = tempdf.loc[0, "Compatibility2"]
 
     # Third rec
-    tempdf = app.query('Specification=="Database"')
+    tempdf = appp.query('Specification=="Database"')
 
     tempdf = tempdf[(tempdf.Name == comp1) | (tempdf.Name == comp2)]
 
@@ -413,7 +416,7 @@ def suggest_appdev():
     tempdf.reset_index(inplace=True, drop=True)
     rec3 = tempdf.head(1)
     if (rec1.empty and rec2.empty and rec3.empty):
-        rec1 = app.query('Name=="GoodBarber"')
+        rec1 = appp.query('Name=="GoodBarber"')
         array = [rec1]
         result = pd.concat(array)
         resultArr = result.to_numpy()
