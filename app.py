@@ -2,6 +2,7 @@ from flask import Flask,render_template,request
 import pickle
 import pandas as pd
 import numpy as np
+
 df = pickle.load(open('df.pkl','rb'))
 game = pickle.load(open('game.pkl','rb'))
 webp = pickle.load(open('webp.pkl','rb'))
@@ -392,7 +393,7 @@ def suggest_appdev():
 
     rec2 = tempdf
     if (tempdf.empty):
-        rec2 = app[(appp.Name == "GoodBarber") & (appp.Specification == "Frontend")]
+        rec2 = appp[(appp.Name == "GoodBarber") & (appp.Specification == "Frontend")]
     else:
         rec2 = tempdf.head(1)
 
