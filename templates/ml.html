@@ -9,24 +9,49 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <style>
+
+        body{
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1009%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='rgba(206%2c 216%2c 227%2c 1)'%3e%3c/rect%3e%3cpath d='M640.4953940212071 54.55895139438387L575.179496933222 172.12756615275697 692.7481116915951 172.1275661527569z' fill='rgba(68%2c 94%2c 137%2c 0.46)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M838.2157626803969 151.2489523752641L696.0235711979211 223.69949265497047 768.4741114776275 365.8916841374463 910.6663029601033 293.4411438577399z' fill='rgba(68%2c 94%2c 137%2c 0.46)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M1049.7337562469265 184.73885227164624L1001.1471224792626 218.75957949199892 1076.4715301936237 274.62916653331837z' fill='rgba(68%2c 94%2c 137%2c 0.46)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M1188.8655709145057 420.63454164836656L1037.148192488699 362.3956965808412 978.9093474211736 514.113075006648 1130.6267258469804 572.3519200741734z' fill='rgba(68%2c 94%2c 137%2c 0.46)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M464.10346136602976 87.45434872490411L505.94069136455704 196.4440590911468 614.9304017307998 154.60682909261953 573.0931717322725 45.61711872637684z' fill='rgba(68%2c 94%2c 137%2c 0.46)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M611.604%2c43.33C630.315%2c44.534%2c649.065%2c36.32%2c658.745%2c20.262C668.717%2c3.72%2c667.967%2c-17.194%2c658.099%2c-33.798C648.441%2c-50.049%2c630.506%2c-59.347%2c611.604%2c-59.059C593.198%2c-58.778%2c575.869%2c-48.813%2c567.503%2c-32.416C559.766%2c-17.251%2c565.354%2c0.09%2c573.92%2c14.803C582.416%2c29.396%2c594.753%2c42.246%2c611.604%2c43.33' fill='rgba(68%2c 94%2c 137%2c 0.46)' class='triangle-float1'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1009'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3cstyle%3e %40keyframes float1 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-10px%2c 0)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float1 %7b animation: float1 5s infinite%3b %7d %40keyframes float2 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-5px%2c -5px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float2 %7b animation: float2 4s infinite%3b %7d %40keyframes float3 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(0%2c -10px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float3 %7b animation: float3 6s infinite%3b %7d %3c/style%3e%3c/defs%3e%3c/svg%3e");
+        }
+
         .questions{
             width:60%;
             margin: 50px auto;
+            padding:40px;
+            border: 2px solid grey;
+            font-weight:600;
+            border-radius:6px;
+            background-color: rgba(255, 255, 255, 0.4);
         }
 
         .suggestions{
             width:90%;
-            margin: 50px auto;
+            margin: 70px auto;
             display:flex;
             flex-direction:row;
             justify-content:space-evenly;
+            padding:30px;
+            border: 2px solid grey;
+            border-radius:6px;
+            background-color: rgba(255, 255, 255, 0.4);
         }
 
         .home{
-            margin-top:30px;
+            margin: 30px auto;
             text-align:center;
         }
 
+        a{
+            text-decoration: none;
+            padding:6px 12px;
+            background-color: #0D6EFD;
+            color:white;
+            border-radius:6px;
+        }
+
+        a:hover{
+            color:white;
+        }
 
     </style>
 
@@ -36,6 +61,25 @@
 <div class="home">
     <a href="/">Home</a>
 </div>
+
+<div class="suggestions">
+
+    {%for i in data %}
+    <div class="card" style="width: 18rem;">
+        <img style="height:10rem;width:10rem;margin:auto" src="{{i[9]}}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{i[0]}}</h5>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Type : {{i[1]}}</li>
+            <li class="list-group-item">Time to learn : {{i[2]}}</li>
+            <li class="list-group-item">{{i[10]}}</li>
+        </ul>
+    </div>
+    {% endfor %}
+
+</div>
+
 
 <div class="questions">
     <form action="/suggest_ml" method="post">
@@ -62,24 +106,6 @@
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-</div>
-
-<div class="suggestions">
-
-    {%for i in data %}
-    <div class="card" style="width: 18rem;">
-        <img style="height:10rem;width:10rem;margin:auto"src="{{i[9]}}" class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">{{i[0]}}</h5>
-        </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Type : {{i[1]}}</li>
-            <li class="list-group-item">Time to learn : {{i[2]}}</li>
-            <li class="list-group-item">{{i[10]}}</li>
-        </ul>
-    </div>
-    {% endfor %}
-
 </div>
 
 
